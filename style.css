@@ -38,7 +38,7 @@ body {
 } 
 
 
- input[type="submit"] {
+ #search_submit {
   height: 70px;
   width: 70px;
   font-size: 50px;
@@ -53,6 +53,6 @@ body {
   transition: opacity .4s ease;
 } 
 
- input[type="submit"]:hover {
+ #search_submit:hover {
   opacity: 1;
 } 
