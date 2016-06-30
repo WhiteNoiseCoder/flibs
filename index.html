@@ -6,16 +6,25 @@
 	<link rel="stylesheet" href="css/style.css">
 	<!-- This pure css breake vertical centered search block -->
 	<link rel="stylesheet" href="css/pure.css">
+	 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
 </head>
 <body>
 	<div id="wrap">
 		<form action="" autocomplete="on">
-			<input id="search" name="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus">
-			<input id="search_submit" value="Искать" type="submit">
+			<input id="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus" onkeyup="getBookList($('#search').val())">
+			<input id="search_submit" value="Искать">
 		</form>
 	</div>
 	<br>
 	<div id="booklist">
+	
+	<script language="javascript">
+	function getBookList(bookName){
+		$.get("/makebooklist?t=" + $('#search').val(), function(data, status){
+    	              document.getElementById('booklist').innerHTML = data;
+        	});
+        }
+	</script>
 		<div class="pure-menu pure-menu-horizontal">
 		<a class="pure-menu-heading pure-menu-link" href="/b/424017">Имя и здоровье вашего ребенка</a>
 			<ul class="pure-menu-list">
