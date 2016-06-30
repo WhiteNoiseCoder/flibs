@@ -975,7 +975,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 .pure-form select[readonly],
 .pure-form textarea[readonly] {
     background-color: #eee; /* menu hover bg color */
-    color: #777; /* menu text color */
+    color: #111; /* menu text color */
     border-color: #ccc;
 }
 
@@ -1366,7 +1366,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 }
 
 .pure-menu-link {
-    color: #777;
+    color: #111;
 }
 
 .pure-menu-children {
