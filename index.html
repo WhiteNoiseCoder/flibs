@@ -3,8 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Flibs</title>
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- This pure css breake vertical centered search block -->
+	<link rel="stylesheet" href="css/pure.css">
 </head>
 <body>
 	<div id="wrap">
@@ -14,15 +15,27 @@
 		</form>
 	</div>
 	<div id="booklist">
-			<div align="center">
-				<a href="/b/424017">Имя и здоровье вашего ребенка</a>
-				<a href="/b/424017/read">читать</a>
-				<a href="/b/424017/epub">epub</a>
-				<a href="/b/424017/mobi">mobi</a>
-				<a href="/b/424017/fb2">fb2</a>
-				<a href="/a/89285">Борис Юрьевич Хигир</a><br>
-			</div></td></tr></tbody>
+		<div class="pure-menu pure-menu-horizontal">
+		<a class="pure-menu-heading pure-menu-link" href="/b/424017">Имя и здоровье вашего ребенка</a>
+			<ul class="pure-menu-list">
+				<li class="pure-menu-item">
+					<a href="/b/424017/read" class="pure-menu-link">читать</a>
+				</li>
+				<li class="pure-menu-item">
+					<a href="/b/424017/epub" class="pure-menu-link">epub</a>
+				</li>
+				<li class="pure-menu-item">
+					<a href="/b/424017/mobi" class="pure-menu-link">mobi</a>
+				</li>
+				<li class="pure-menu-item">
+					<a href="/b/424017/fb2" class="pure-menu-link">fb2</a>
+				</li>
+				<li class="pure-menu-item">
+					<a href="/a/89285" class="pure-menu-link">Борис Юрьевич Хигир</a>
+				</li>
+			</ul>
+		</div>
 	</div>
-
+</div>
 </body>
 </html>
