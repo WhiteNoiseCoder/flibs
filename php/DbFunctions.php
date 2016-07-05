@@ -3,47 +3,27 @@ require ("configuration.php");
 
 class DbFunction {
 
-        function __construct(){
-                $this->connect();
-        }
 
-function connect() {
+function query_to_json($query){
         $username = DB_USER;
         $password = DB_PASSWORD;
         $my_db = DB_DATABASE;
         $my_db_host = DB_HOST;
 
-                //connection to the database
-        $this->dbconn = mysql_connect($my_db_host, $username, $password)
-        or die("Unable to connect to MySQL");
-	mysql_select_db($my_db)
-        or die("Unable to connect to database: " . mysql_error());
-}
-
-function my_query($query){
-        $this->connect();
-        $result = mysql_query($this->dbconn, "$query");
-
-        if (!$result) {
-                        //error_log("Произошла ошибка.\n");
-                error_log(pg_last_error($this->dbconn));
-                $this->echo_error();
-                        //exit;
-        }
-        
-        return $result;
-}
-
-function query_to_json($query){
-        $result = $this->my_query($query);
-        $myarray = array();
-
-        while ($row = pg_fetch_row($result)) {
+	try {
+            $dbh = new PDO("mysql:host={$my_db_host};dbname={$my_db};charset=utf8", $username, $password);
+	    $myarray = array();
+            foreach($dbh->query($query) as $row) {
                 $myarray[] = $row;
-        }
+    	    }
+    	    $dbh = null;
+	
+	} catch (PDOException $e) {
+	    print "Error!: " . $e->getMessage() . "<br/>";
+	    die();
+	}
         
-        $json = json_encode($myarray);
-        return $json;
+        return json_encode($myarray);
 }
 
 }
