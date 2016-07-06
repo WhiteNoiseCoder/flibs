@@ -31,11 +31,11 @@ function setGetParametr(){
 		if ($('#search').val()){
 		    changeUrl("?s=" + $('#search').val());
 		}
+		$("#booklist").html("");
 		$body = $('#booklist');
 		$.get("php/GetBooks.php?t=" + $('#search').val(), function(data, status){
 	                $body.addClass("modal");
 			books = JSON.parse(data);
-			$("#booklist").html("");
 			for(var i=0;i < books.length;i++){
 			     var current_book_title = '<div class="pure-menu pure-menu-horizontal"><a class="pure-menu-heading pure-menu-link" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a></div>';
 			     var author = '<li class="pure-menu-item"><a href="/a/' + books[i].AvtorId +'" class="pure-menu-link">' + books[i].FirstName + ' ' + books[i].LastName + '</a></li>';
