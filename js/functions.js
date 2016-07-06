@@ -37,7 +37,7 @@ function setGetParametr(){
 			books = JSON.parse(data);
 			$("#booklist").html("");
 			for(var i=0;i < books.length;i++){
-			     var current_book_title = '<div class="pure-menu pure-menu-horizontal"><a class="pure-menu-heading pure-menu-link" href="/b/424017">' + books[i].Title + '</a></div>';
+			     var current_book_title = '<div class="pure-menu pure-menu-horizontal"><a class="pure-menu-heading pure-menu-link" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a></div>';
 			     var author = '<li class="pure-menu-item"><a href="/a/' + books[i].AvtorId +'" class="pure-menu-link">' + books[i].FirstName + ' ' + books[i].LastName + '</a></li>';
 			     var read =  '<li class="pure-menu-item"><a href="/b/' + books[i].BookId + '/read" class="pure-menu-link">читать</a></li>';
 			     var epub =  '<li class="pure-menu-item"><a href="/b/' + books[i].BookId + '/epub" class="pure-menu-link">epub</a></li>';

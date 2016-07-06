@@ -8,7 +8,7 @@ function get_books($string){
         	    FROM libbook 
         	    JOIN libavtor USING(BookId) 
         	    JOIN libavtorname USING(AvtorId) 
-        	    WHERE Title LIKE '%{$string}%' OR LastName LIKE '%{$string}%'
+        	    WHERE (Title LIKE '%{$string}%' OR LastName LIKE '%{$string}%')
         	    AND Deleted = 0
 		    LIMIT 50
 		    ;";
