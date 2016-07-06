@@ -14,7 +14,7 @@
 		<form action="" autocomplete="on">
 			<input id="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus" 
 			onkeydown="if (event.keyCode == 13) getBookList($('#search').val())">
-			<input id="search_submit" value="Искать">
+			<input id="search_submit" value="Искать" onclick="getBookList($('#search').val())">
 		</form>
 	</div>
 	<br>
