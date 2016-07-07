@@ -9,10 +9,11 @@ function get_books($string){
         	    JOIN libavtor USING(BookId) 
         	    JOIN libavtorname USING(AvtorId) 
         	    WHERE (Title LIKE '%{$string}%' OR LastName LIKE '%{$string}%')
-        	    AND Deleted = 0
-		    LIMIT 50
+        		AND Deleted = 0
+		    LIMIT 200
 		    ;";
         	    //GROUP BY LastName
+		    //ORDER BY LastName
         	    //ORDER BY CASE WHEN LEFT(MiddleName, 1) = 'mb_substr($string, 0, 1)' THEN 1 ELSE 2 END, Title
         	    //WHERE Title LIKE '%{$string}%' OR FirstName LIKE '%{$string}%' OR LastName LIKE '%{$string}%' OR MiddleName LIKE '%{$string}%' 
         return $this->query_to_json($query);
