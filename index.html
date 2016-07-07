@@ -2,31 +2,35 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Flibs</title>
+	<title>Flibs library</title>
 	<link rel="stylesheet" href="css/style.css">
-	<!-- This pure css breake vertical centered search block -->
 	<link rel="stylesheet" href="css/pure.css">
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
 	<script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
-	<div id="wrap">
+	<div class="search_out">
+	<div class="search_middle">
+	<div class="search_inner">
 		<form action="" autocomplete="on">
 			<input id="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus" 
 			onkeydown="if (event.keyCode == 13) getBookList($('#search').val())">
 			<input id="search_submit" value="Искать" onclick="getBookList($('#search').val())">
 		</form>
 	</div>
-	<br>
-	
-	<div class="pure-menu custom-restricted-width" id="booklist">
+	</div>
+	</div>
+
+	<div class="" id="loading"><div class="modal"></div></div>
+
+	<div class="pure-menu custom-restricted-width" id="booklist" style="margin-top:20px;">
 	        <ul class="pure-menu-list">
+	</div>
 
 	<script language="javascript">
-	    setGetParametr();
+	    setSearchString();
 	</script>
-	
-	</div>
+
 </div>
 </body>
 </html>
