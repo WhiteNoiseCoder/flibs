@@ -4,12 +4,14 @@ include './DbFunctions.php';
 class Books extends DbFunction{
 
 function get_books($string){
-        $query = "SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName 
+        $query = "SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
+		    ((Title RLIKE '[[:<:]]{$string}[[:>:]]') + (LastName RLIKE '[[:<:]]{$string}[[:>:]]')) AS Matching
         	    FROM libbook 
         	    JOIN libavtor USING(BookId) 
         	    JOIN libavtorname USING(AvtorId) 
         	    WHERE (Title LIKE '%{$string}%' OR LastName LIKE '%{$string}%')
         		AND Deleted = 0
+        	    ORDER BY Matching DESC, LastName, Title
 		    LIMIT 200
 		    ;";
         	    //GROUP BY LastName
