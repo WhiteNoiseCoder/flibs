@@ -754,7 +754,7 @@ this the same font stack that Normalize.css sets for the `body`.
     display: inline-block;
     zoom: 1;
     line-height: normal;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     vertical-align: middle;
     text-align: center;
     cursor: pointer;
@@ -1256,13 +1256,13 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 .pure-menu-heading {
     display: block;
     text-decoration: none;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 /* HORIZONTAL MENU */
 .pure-menu-horizontal {
     width: 100%;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .pure-menu-horizontal .pure-menu-list {
@@ -1333,7 +1333,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 }
 
 .pure-menu-horizontal.pure-menu-scrollable {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     overflow-y: hidden;
     overflow-x: auto;
     -ms-overflow-style: none;

@@ -49,11 +49,12 @@ function getBookList(bookName){
     setGetParametr();
     $("#booktable").html(""); //clear table
     $('#loading').addClass("loading");
-    $(".search_out").css("height", "1%"); //move up search
+    $(".search_out").css("height", "1%"); //move up search  
     $.get("php/GetBooks.php?t=" + $('#search').val(), function(data, status){
         $('#loading').removeClass("loading");
 	$(".search_out").css("position", "static");
 	books = JSON.parse(data);
+	console.log(data);
 	for(var i=0;i < books.length;i++){
 	     var current = '<tr></tr>';
 	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';

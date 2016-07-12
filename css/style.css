@@ -76,6 +76,7 @@ Start by setting display:none to make this hidden.
     left:       0;
     height:     100%;
     width:      100%;
+    filter: grayscale(100%);
     background: rgba( 255, 255, 255, .0 ) 
     url('//vk.com/images/progress7.gif') 
     50% 50% 
@@ -92,4 +93,8 @@ the scrollbar off with overflow:hidden */
 modal element will be visible */
 .loading .modal {
   display: block;
+}
+
+td {
+  border: 1px solid;
 }
