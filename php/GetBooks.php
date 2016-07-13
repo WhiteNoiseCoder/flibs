@@ -4,18 +4,27 @@ include './DbFunctions.php';
 class Books extends DbFunction{
 
 function get_books($string){
-        $query = "SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName 
-        	    FROM libbook 
-        	    JOIN libavtor USING(BookId) 
-        	    JOIN libavtorname USING(AvtorId) 
-        	    WHERE (Title LIKE '%{$string}%' OR LastName LIKE '%{$string}%')
-        		AND Deleted = 0
-		    LIMIT 200
-		    ;";
-        	    //GROUP BY LastName
-		    //ORDER BY LastName
-        	    //ORDER BY CASE WHEN LEFT(MiddleName, 1) = 'mb_substr($string, 0, 1)' THEN 1 ELSE 2 END, Title
-        	    //WHERE Title LIKE '%{$string}%' OR FirstName LIKE '%{$string}%' OR LastName LIKE '%{$string}%' OR MiddleName LIKE '%{$string}%' 
+        $query = "	SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName, SUM(MatchTitle), SUM(MatchLastName), SUM(MatchTitle) + SUM(MatchLastName)
+			FROM (
+			    SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
+				MATCH (Title) AGAINST ('{$string}') as MatchTitle, 0 AS MatchLastName
+			    FROM libbook 
+				JOIN libavtor USING(BookId)
+				JOIN libavtorname USING(AvtorId)
+			    WHERE MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE)
+
+		            UNION
+
+			    SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName,
+				0 AS MatchTitle, MATCH (LastName) AGAINST ('{$string}') as MatchLastName
+			    FROM libbook 
+				JOIN libavtor USING(BookId)
+				JOIN libavtorname USING(AvtorId)
+			    WHERE MATCH (LastName) AGAINST ('{$string}*' IN BOOLEAN MODE)
+			) AS books
+			GROUP BY BookId, Title, AvtorId, FirstName, MiddleName, LastName
+			ORDER BY SUM(MatchTitle) + SUM(MatchLastName) DESC, LastName, Title
+			LIMIT 200;";
         return $this->query_to_json($query);
 }
 }
