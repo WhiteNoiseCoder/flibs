@@ -99,3 +99,27 @@ modal element will be visible */
 td {
   border: 1px solid;
 }
+
+/* Book page
+
+
+#book_div {
+    margin-left: 30%;
+}
+
+@media (min-width: 979px) 
+{
+    #book_div {
+	margin-left: 30%;
+    }
+}
+ */
+
+#book_div {
+    margin-left: 5px;
+}
+
+#book {
+    max-width: 600px;
+}
+

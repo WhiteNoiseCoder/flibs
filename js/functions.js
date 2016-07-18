@@ -1,3 +1,4 @@
+
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -13,6 +14,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+
 function changeUrl(url){
     window.history.pushState(url, url, url);
     return false;
@@ -24,18 +26,18 @@ function setGetParametr(){
     }
 }
 
+function setGet(arg){
+    if (arg){
+        changeUrl(arg);
+    }
+}
+
+
 function setSearchString(){
     if (getUrlParameter('s')){
 	$('#search').val(getUrlParameter('s'));
 	getBookList(getUrlParameter('s'));
     }
-}
-
-function addLi(item){
-    var li = '<li class="pure-menu-item">';
-    var lie = '</li>'
-     
-    return li + item + lie;
 }
 
 function addTd(item){
@@ -53,12 +55,16 @@ function getBookList(bookName){
     $.get("php/GetBooks.php?t=" + $('#search').val(), function(data, status){
         $('#loading').removeClass("loading");
 	$(".search_out").css("position", "static");
-	books = JSON.parse(data);
+	generateBookList(JSON.parse(data));
+    });
+}
+
+function generateBookList(books){
 	for(var i=0;i < books.length;i++){
 	     var current = '<tr></tr>';
-	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';
+	     //var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';
+	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" onclick="readBook(' + books[i].BookId +')">' + books[i].Title + '</a>';
 	     var author = '<a href="/a/' + books[i].AvtorId +'" class="pure-menu-link">' + books[i].FirstName + ' ' + books[i].LastName + '</a>';
-	     var read =  '<a href="/b/' + books[i].BookId + '/read" class="pure-menu-link">читать</a>';
 	     var epub =  '<a href="/b/' + books[i].BookId + '/epub" class="pure-menu-link">epub</a>';
 	     var mobi =  '<a href="/b/' + books[i].BookId + '/mobi" class="pure-menu-link">mobi</a>';
 	     var fb2 =  '<a href="/b/' + books[i].BookId + '/fb2" class="pure-menu-link">fb2</a>';
@@ -66,5 +72,16 @@ function getBookList(bookName){
 	     var current_book = addTd(title) + addTd(author) + addTd(fb2) + addTd(epub) + addTd(mobi);
              $(current).appendTo('#booktable').append(current_book);
 	}
+}
+
+function readBook(id){
+    var addres = "b/" + id + "/read";
+    $("#booktable").html(""); //clear table
+    $("#search_div").html(""); //clear table
+    $('#loading').addClass("loading");
+    $.get(addres, function(data, status){
+	setGet(addres);
+    	$('#loading').removeClass("loading");
+	document.getElementById('book').innerHTML = data;	
     });
 }

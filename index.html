@@ -11,9 +11,10 @@
 	<script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
-	<div class="search_out">
+	<div class="search_out" id="search_div">
 	<div class="search_middle">
 	<div class="search_inner">
+
 		<form action="" autocomplete="on">
 			<input id="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus" 
 			onkeydown="if (event.keyCode == 13) getBookList($('#search').val())">
@@ -32,9 +33,19 @@
 
 	<div class="" id="loading"><div class="modal"></div></div>
 
+	<div id="book_div">
+	<div id="book" align="left"></div>
+	</div>
+
 
 	<script language="javascript">
 	    setSearchString();
+	    
+	    //fix for not working back history button
+	    //http://stackoverflow.com/questions/5398071/window-history-pushstate-not-going-back-in-history
+	    window.addEventListener("popstate", function(e) {
+	        window.location.href = location.href;
+	    });
 	</script>
 
 </div>
