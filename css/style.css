@@ -67,7 +67,9 @@ Start by setting display:none to make this hidden.
    Then we position it in relation to the viewport window
    with position:fixed. Width, height, top and left speak
    for themselves. Background we set to 80% white with
-   our animation centered, and no-repeating */
+   our animation centered, and no-repeating 
+*/
+
 .modal {
     display:    none;
     position:   fixed;
@@ -76,9 +78,8 @@ Start by setting display:none to make this hidden.
     left:       0;
     height:     100%;
     width:      100%;
-    filter: grayscale(100%);
-    background: rgba( 255, 255, 255, .0 ) 
-    url('//vk.com/images/progress7.gif') 
+    background: rgba( 255, 255, 255, .0 )
+    url('/img/progress7_bw.gif') 
     50% 50% 
     no-repeat;
 }
