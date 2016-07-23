@@ -15,7 +15,7 @@
 	<div class="search_middle">
 	<div class="search_inner">
 
-		<form autocomplete="on">
+		<form action="" autocomplete="on">
 			<input id="search" type="text" placeholder="Какую книгу будем читать?" autofocus="autofocus" 
 			onkeydown="if (event.keyCode == 13) getBookList($('#search').val())">
 			<input id="search_submit" value="Искать" onclick="getBookList($('#search').val())">
@@ -38,17 +38,17 @@
 	</div>
 
 
-	<script>
+	<script language="javascript">
 	    setSearchString();
 	    
 	    //fix for not working back history button
 	    //http://stackoverflow.com/questions/5398071/window-history-pushstate-not-going-back-in-history
-	    //window.addEventListener("popstate", function(e) {
-	    //    window.location.href = location.href;
-	    //});
+	    window.addEventListener("popstate", function(e) {
+	        window.location.href = location.href;
+	    });
 	</script>
 
+</div>
 <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter38383760 = new Ya.Metrika({ id:38383760, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/38383760" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
- 
 </body>
 </html>

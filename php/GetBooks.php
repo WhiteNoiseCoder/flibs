@@ -11,7 +11,7 @@ function get_books($string){
 			    FROM libbook 
 				JOIN libavtor USING(BookId)
 				JOIN libavtorname USING(AvtorId)
-			    WHERE MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE) AND Deleted = 0 AND Lang = 'ru'
+			    WHERE MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE) AND Deleted = 0
 
 		            UNION
 
