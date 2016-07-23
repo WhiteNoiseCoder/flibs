@@ -55,7 +55,7 @@ function getBookList(bookName){
     $.get("php/GetBooks.php?t=" + $('#search').val(), function(data, status){
         $('#loading').removeClass("loading");
 	$(".search_out").css("position", "static");
-	document.getElementById("search").style.border = "none";
+	$("#search").css("border", "none");
 	generateBookList(JSON.parse(data));
     });
 }
