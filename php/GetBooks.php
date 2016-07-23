@@ -11,7 +11,7 @@ function get_books($string){
 			    FROM libbook 
 				JOIN libavtor USING(BookId)
 				JOIN libavtorname USING(AvtorId)
-			    WHERE MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE) AND Deleted = 0 AND Lang = 'ru'
+			    WHERE (MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE))
 
 		            UNION
 
@@ -20,7 +20,7 @@ function get_books($string){
 			    FROM libbook 
 				JOIN libavtor USING(BookId)
 				JOIN libavtorname USING(AvtorId)
-			    WHERE MATCH (LastName) AGAINST ('{$string}*' IN BOOLEAN MODE)
+			    WHERE MATCH (LastName) AGAINST ('{$string}*' IN BOOLEAN MODE) AND (Deleted = 0 AND Lang = 'ru' AND FileType = 'fb2')
 			) AS books
 			GROUP BY BookId, Title, AvtorId, FirstName, MiddleName, LastName
 			ORDER BY SUM(MatchTitle) + SUM(MatchLastName) DESC, LastName, Title
