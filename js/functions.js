@@ -50,9 +50,10 @@ function addTd(item){
 function getBookList(bookName){
     setGetParametr();
     $("#booktable").html(""); //clear table
+    document.title = 'Flibs ' + bookName;
     $('#loading').addClass("loading");
-    $(".search_out").css("height", "1%"); //move up search  
-    $.get("php/GetBooks.php?t=" + $('#search').val(), function(data, status){
+    $(".search_out").css("height", "1%"); //move up search
+    $.get("php/GetBooks.php?t=" + bookName, function(data, status){
         $('#loading').removeClass("loading");
 	$(".search_out").css("position", "static");
 	$("#search").css("border", "none");
@@ -63,9 +64,10 @@ function getBookList(bookName){
 function generateBookList(books){
 	for(var i=0;i < books.length;i++){
 	     var current = '<tr></tr>';
-	     //var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';
-	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" onclick="readBook(' + books[i].BookId +')">' + books[i].Title + '</a>';
-	     var author = '<a href="/a/' + books[i].AvtorId +'" class="pure-menu-link">' + books[i].FirstName + ' ' + books[i].LastName + '</a>';
+	     var authorName = books[i].FirstName + ' ' + books[i].MiddleName + ' ' + books[i].LastName;
+	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';
+	     //var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" onclick="readBook(' + books[i].BookId +')">' + books[i].Title + '</a>';
+	     var author = '<a href="?s=' + authorName +'" class="pure-menu-link">' + authorName + '</a>';
 	     var epub =  '<a href="/b/' + books[i].BookId + '/epub" class="pure-menu-link">epub</a>';
 	     var mobi =  '<a href="/b/' + books[i].BookId + '/mobi" class="pure-menu-link">mobi</a>';
 	     var fb2 =  '<a href="/b/' + books[i].BookId + '/fb2" class="pure-menu-link">fb2</a>';
