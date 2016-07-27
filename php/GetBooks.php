@@ -4,35 +4,37 @@ include './DbFunctions.php';
 class Books extends DbFunction{
 
 function get_books($string){
-        $query = "	SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
-    			    SUM(MatchTitle), SUM(MatchLastName), SUM(MatchFirstName), SUM(MatchMiddleName),
-    			    SUM(MatchTitle) + SUM(MatchLastName) + SUM(MatchFirstName) + SUM(MatchMiddleName)
-			FROM (
-			    SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
-				MATCH (Title) AGAINST ('{$string}') as MatchTitle, 0 AS MatchLastName, 0 AS MatchMiddleName, 0 AS MatchFirstName
-			    FROM libbook 
-				JOIN libavtor USING(BookId)
-				JOIN libavtorname USING(AvtorId)
-			    WHERE (MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE))
-				AND Deleted = 0
+        $query = "	SELECT Lang, BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
+                            SUM(MatchTitle), SUM(MatchLastName), SUM(MatchFirstName), SUM(MatchMiddleName),
+                            SUM(MatchTitle) + SUM(MatchLastName) + SUM(MatchFirstName) + SUM(MatchMiddleName)
+                        FROM (
+                            SELECT Lang, FileType, Deleted, BookId, Title, AvtorId, FirstName, MiddleName, LastName, 
+                                MATCH (Title) AGAINST ('{$string}') as MatchTitle,
+				0 AS MatchLastName, 0 AS MatchMiddleName, 0 AS MatchFirstName
+                            FROM libbook 
+                                JOIN libavtor USING(BookId)
+                                JOIN libavtorname USING(AvtorId)
+                            WHERE (MATCH (Title) AGAINST ('{$string}*' IN BOOLEAN MODE))
 
-		            UNION
+                            UNION
 
-			    SELECT BookId, Title, AvtorId, FirstName, MiddleName, LastName,
-				0 AS MatchTitle, 
-				MATCH (LastName) AGAINST ('{$string}') as MatchLastName,
-				MATCH (FirstName) AGAINST ('{$string}') as MatchFirstName,
-				MATCH (MiddleName) AGAINST ('{$string}') as MatchMiddleName
-			    FROM libbook 
-				JOIN libavtor USING(BookId)
-				JOIN libavtorname USING(AvtorId)
-			    WHERE MATCH (LastName) AGAINST ('{$string}*' IN BOOLEAN MODE) 
-				AND (Lang = 'ru' AND FileType = 'fb2')
-
-			) AS books
-			GROUP BY BookId, Title, AvtorId, FirstName, MiddleName, LastName
-			ORDER BY SUM(MatchTitle) + SUM(MatchLastName) + SUM(MatchFirstName) + SUM(MatchMiddleName) DESC, LastName, Title
-			LIMIT 200;";
+                            SELECT Lang, FileType, Deleted, BookId, Title, AvtorId, FirstName, MiddleName, LastName,
+                                0 AS MatchTitle, 
+                                MATCH (LastName) AGAINST ('{$string}') as MatchLastName,
+                                MATCH (FirstName) AGAINST ('{$string}') as MatchFirstName,
+                                MATCH (MiddleName) AGAINST ('{$string}') as MatchMiddleName
+                            FROM libbook 
+                                JOIN libavtor USING(BookId)
+                                JOIN libavtorname USING(AvtorId)
+                            WHERE 
+				MATCH (LastName) AGAINST ('{$string}*' IN BOOLEAN MODE) OR
+				MATCH (FirstName) AGAINST ('{$string}*' IN BOOLEAN MODE) OR
+				MATCH (MiddleName) AGAINST ('{$string}*' IN BOOLEAN MODE)
+                        ) AS books
+			WHERE (Deleted = 0 AND Lang = 'ru' AND FileType = 'fb2')
+                        GROUP BY BookId, Title, AvtorId, FirstName, MiddleName, LastName
+                        ORDER BY SUM(MatchTitle) + SUM(MatchLastName) + SUM(MatchFirstName) + SUM(MatchMiddleName) DESC, LastName, Title
+                        LIMIT 200;";
         return $this->query_to_json($query);
 }
 }

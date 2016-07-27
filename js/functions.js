@@ -50,7 +50,7 @@ function addTd(item){
 function getBookList(bookName){
     setGetParametr();
     $("#booktable").html(""); //clear table
-    document.title = 'Flibs ' + bookName;
+    document.title = bookName;
     $('#loading').addClass("loading");
     $(".search_out").css("height", "1%"); //move up search
     $.get("php/GetBooks.php?t=" + bookName, function(data, status){
