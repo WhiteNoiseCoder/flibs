@@ -64,7 +64,7 @@ function getBookList(bookName){
 function generateBookList(books){
 	for(var i=0;i < books.length;i++){
 	     var current = '<tr></tr>';
-	     var authorName = books[i].FirstName + ' ' + books[i].MiddleName + ' ' + books[i].LastName;
+	     var authorName = (books[i].FirstName + ' ' + books[i].MiddleName + ' ' + books[i].LastName).replace(/ +(?= )/g,'');
 	     var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" href="/b/'+ books[i].BookId + '/read">' + books[i].Title + '</a>';
 	     //var title = '<a class="pure-menu-heading pure-menu-link" style="height:100%;width:96%" onclick="readBook(' + books[i].BookId +')">' + books[i].Title + '</a>';
 	     var author = '<a href="?s=' + authorName +'" class="pure-menu-link">' + authorName + '</a>';
